@@ -67,5 +67,5 @@ for info in range( len(PASSWORD) ):
     PASSWORD.remove(temp) ;
 
 
-print(f" Enjoy Your New Password:   {new_password} \n\n") ;
+print(f" ENJOY YOUR NEW PASSWORD:       {new_password} \n\n") ;
 
