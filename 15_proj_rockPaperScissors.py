@@ -6,32 +6,50 @@
 
 import random
 
-rock = '''
+rock = """
      _______
  ---'   ____)
        (_____)
        (_____)
        (____)
  ---.__(___)
-'''
 
-paper = '''
+ Rock
+"""
+
+paper = """
      _______
  ---'   ____)____
            ______)
            _______)
           _______)
  ---.__________)
-'''
 
-scissors = '''
+ Paper
+"""
+
+scissors = """
      _____
  ---'   __)______
            ______)
         __________)
        (____)
  ---.__(___)
-'''
+
+ Scissors
+"""
+
+invalid = """
+ ***     ***
+  ***   ***
+   *** ***
+    * * *
+   *** ***
+  ***   ***
+ ***     ***
+
+ Invalid Entry
+"""
 
 
 playing = True ;
@@ -60,7 +78,7 @@ while(playing):
         computer_choice = scissors ;
     
     
-    response = input(" Type Your Choice [Rock, Paper, Scissors]: ").lower() ;
+    response = input(" Type Your Choice [ Rock | Paper | Scissors ]: ").lower() ;
     
     if (response == "rock"):
         your_choice = rock ;
@@ -68,43 +86,57 @@ while(playing):
     elif (response == "paper"):
         your_choice = paper ;
     
-    else:
+    elif (response == "scissors"):
         your_choice = scissors ;
+
+    else:
+        your_choice = invalid ;
     
     
     if ( ((computer == "rock") and (response == "scissors")) or
          ((computer == "paper") and (response == "rock")) or 
          ((computer == "scissors") and (response == "paper")) ):
         print(f"""
-{computer_choice}\n\n
  COMPUTER CHOSE:\n\n
-{your_choice}\n\n
+{computer_choice}\n\n
  YOU CHOSE:\n\n
+{your_choice}\n\n
  YOU LOSE!\n\n
+""") ;
+
+    elif ( ((computer == "scissors") and (response == "rock")) or
+            ((computer == "rock") and (response == "paper")) or 
+            ((computer == "paper") and (response == "scissors")) ):
+        print(f"""
+ COMPUTER CHOSE:\n\n
+{computer_choice}\n\n
+ YOU CHOSE:\n\n
+{your_choice}\n\n
+ YOU WIN!\n\n
 """) ;
     
     
     elif (computer == response):
         print(f"""
-{computer_choice}\n\n
  COMPUTER CHOSE:\n\n
-{your_choice}\n\n
+{computer_choice}\n\n
  YOU CHOSE:\n\n
- DRAW!\n\n
+{your_choice}\n\n
+ DRAW GAME!\n\n
 """) ;
     
     
     else:
         print(f"""
-{computer_choice}\n\n
  COMPUTER CHOSE:\n\n
-{your_choice}\n\n
+{computer_choice}\n\n
  YOU CHOSE:\n\n
- YOU WIN!\n\n
+{your_choice}\n\n
+ YOU LOSE!\n\n
 """) ;
     
     
-    response = input(" Play Again? [Yes, No]: ").lower() ;
+    response = input(" Play Again? [ Yes | No ]: ").lower() ;
     print("\n") ;
     
     if (response == 'no'):
