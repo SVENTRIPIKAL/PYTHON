@@ -276,15 +276,14 @@ def hideQuote( phrase ):        # function receives a quote and creates
     return temp ;
 
 def checkGuess( guess, phrase ):             # function checks if a letter
-    global correct, tries, correct_guesses ; # exists in the original quote
-                                             # and updates user tries, guesses
-    if (guess.lower() in phrase.lower()):    # and correct attempts accordingly.
-        correct = True ;
+    global incorrect, correct_guesses ;      # exists in the original quote
+                                             # and updates user incorrect
+    if (guess.lower() in phrase.lower()):    # and correct guesses accordingly.
         if (guess.lower() not in correct_guesses):
             correct_guesses.append( guess.lower() ) ;
     
     else:
-        tries += 1 ;
+        incorrect += 1 ;
 
 def updateHidden( phrase ): 
     global correct_guesses ;    temp = "" ;  # function works the same as
@@ -303,7 +302,7 @@ def updateHidden( phrase ):
 
 def promptReplay():                                 # function prompts user for
     global playing, correct_guesses, quoted_list ;  # a new game, and updates
-    global tries, phrase, hiddenQuote ;             # variables accordlingly.
+    global incorrect, phrase, hiddenQuote ;         # variables accordlingly.
     
     response = input(" Would You Like To Play Again? ") ;
     
@@ -312,10 +311,10 @@ def promptReplay():                                 # function prompts user for
         printLines(50) ;
     
     else:
-        correct_guesses = [] ;      quoted_list = [] ;   tries = 0 ;
-        printLines(10) ;            print(logo) ;        print( hangman[tries] ) ;
-        random.shuffle(quotes) ;    phrase = random.choice(quotes) ;
-        listQuote(phrase) ;         hiddenQuote = hideQuote(phrase) ;
+        correct_guesses = [] ;    quoted_list = [] ;  incorrect = 0 ;
+        printLines(10) ;          print(logo) ;       print( hangman[incorrect] ) ;
+        random.shuffle(quotes) ;  phrase = random.choice(quotes) ;
+        listQuote(phrase) ;       hiddenQuote = hideQuote(phrase) ;
 
 def printLines( number ):       # function prints specified
     for i in range(number):     # number of New Lines
@@ -323,15 +322,15 @@ def printLines( number ):       # function prints specified
 
 
 
-correct_guesses = [] ;      quoted_list = [] ;      tries = 0 ;
-playing = True ;            print(logo) ;           print( hangman[tries] ) ;
+correct_guesses = [] ;      quoted_list = [] ;      incorrect = 0 ;
+playing = True ;            print(logo) ;           print( hangman[incorrect] ) ;
 random.shuffle(quotes) ;    phrase = random.choice(quotes) ;
 listQuote(phrase) ;         hiddenQuote = hideQuote(phrase) ;
 
 
 while (playing):
     
-    if ( tries == 7 ):
+    if ( incorrect == 7 ):
         print("\n\n\t   YOU LOSE! \n\n") ;
         
         promptReplay() ;
@@ -342,13 +341,13 @@ while (playing):
         promptReplay() ;
     
     else:
-        correct = False ;        print(f"\t\t\t      {hiddenQuote}") ;
+        print(f"\t\t\t      {hiddenQuote}") ;
         
         guess = input(f"\n\n     GUESS A LETTER: " ) ;
         
         printLines(10) ;         print(logo) ;
         
-        checkGuess( guess, phrase ) ;       print( hangman[tries] ) ;
+        checkGuess( guess, phrase ) ;       print( hangman[incorrect] ) ;
         
         hiddenQuote = updateHidden( phrase ) ;
 
