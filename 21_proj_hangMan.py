@@ -3,11 +3,10 @@
 	mini-game of HANGMAN.
 """
 
-
-import random                           # allows use of random functions
+from os import system, name             # used for defining clear function
+import random                           # used for random function
 
 seed_num = random.randint(1, 1000) ;    # draws a random seed number
-
 random.seed(seed_num) ;                 # creates random seed
 
 
@@ -241,14 +240,10 @@ lose ="""
 """
 
 
+
 hangman = [ start, head, body, arm_1,           # list holds hangman outputs
             arm_2, leg_1, leg_2, lose ] ;
 
-letters = [ 'A', 'B', 'C', 'D', 'E', 'F',       # list holds all game letters
-            'G', 'H', 'I', 'J', 'K', 'L',
-            'M', 'N', 'O', 'P', 'Q', 'R',
-            'S', 'T', 'U', 'V', 'W', 'X',
-            'Y', 'Z' ] ;
 
 quotes = [ "Go Harder Than Last Time!",         # list holds all game quotes
            "Oh, Happy Days...", 
@@ -264,6 +259,7 @@ def listQuote( phrase ):        # function receives a quote and updates
         if ( (i.isalpha()) and (i.lower() not in quoted_list) ):
             quoted_list.append(i.lower()) ;
 
+
 def hideQuote( phrase ):        # function receives a quote and creates
     temp = "" ;                 # a string of horizontal lines for each
     for index in phrase:        # letter in a quote--returns the string
@@ -275,6 +271,7 @@ def hideQuote( phrase ):        # function receives a quote and creates
             temp += f"{index} " ;
     return temp ;
 
+
 def checkGuess( guess, phrase ):             # function checks if a letter
     global incorrect, correct_guesses ;      # exists in the original quote
                                              # and updates user incorrect
@@ -284,6 +281,7 @@ def checkGuess( guess, phrase ):             # function checks if a letter
     
     else:
         incorrect += 1 ;
+
 
 def updateHidden( phrase ): 
     global correct_guesses ;    temp = "" ;  # function works the same as
@@ -300,6 +298,7 @@ def updateHidden( phrase ):
     
     return temp ;
 
+
 def promptReplay():                                 # function prompts user for
     global playing, correct_guesses, quoted_list ;  # a new game, and updates
     global incorrect, phrase, hiddenQuote ;         # variables accordlingly.
@@ -308,20 +307,24 @@ def promptReplay():                                 # function prompts user for
     
     if (response.lower() == 'no'):
         playing = False ;
-        printLines(50) ;
+        clear() ;
+        print("\n\n\t\t\t  *** THANK YOU FOR PLAYING *** \n\n") ;
     
     else:
-        correct_guesses = [] ;    quoted_list = [] ;  incorrect = 0 ;
-        printLines(10) ;          print(logo) ;       print( hangman[incorrect] ) ;
-        random.shuffle(quotes) ;  phrase = random.choice(quotes) ;
-        listQuote(phrase) ;       hiddenQuote = hideQuote(phrase) ;
-
-def printLines( number ):       # function prints specified
-    for i in range(number):     # number of New Lines
-        print() ;
+        correct_guesses = [] ;   quoted_list = [] ;  incorrect = 0 ;
+        clear() ;                print(logo) ;       print( hangman[incorrect] ) ;
+        random.shuffle(quotes) ; phrase = random.choice(quotes) ;
+        listQuote(phrase) ;      hiddenQuote = hideQuote(phrase) ;
 
 
+def clear():                        # function clears screen by os system
+        if name == 'nt':
+            clear = system('cls') ;
+        else:
+            clear = system('clear') ;
 
+
+clear() ;
 correct_guesses = [] ;      quoted_list = [] ;      incorrect = 0 ;
 playing = True ;            print(logo) ;           print( hangman[incorrect] ) ;
 random.shuffle(quotes) ;    phrase = random.choice(quotes) ;
@@ -341,17 +344,13 @@ while (playing):
         promptReplay() ;
     
     else:
-        print(f"\t\t\t      {hiddenQuote}") ;
+        print(f"\t\t\t      \"{hiddenQuote}\"") ;
         
         guess = input(f"\n\n     GUESS A LETTER: " ) ;
         
-        printLines(10) ;         print(logo) ;
+        clear() ;         print(logo) ;
         
         checkGuess( guess, phrase ) ;       print( hangman[incorrect] ) ;
         
         hiddenQuote = updateHidden( phrase ) ;
-
-
-
-print("\t\t\t     *** THANK YOU FOR PLAYING *** \n\n") ;
 
