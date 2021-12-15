@@ -276,7 +276,8 @@ def checkGuess( guess, phrase ):             # function checks if a letter
     global incorrect, correct_guesses ;      # exists in the original quote
                                              # and updates user incorrect
     if (guess.lower() in phrase.lower()):    # and correct guesses accordingly.
-        if (guess.lower() not in correct_guesses):
+        if ( (guess.lower() not in correct_guesses) and
+             (guess != "") ):
             correct_guesses.append( guess.lower() ) ;
     
     else:
@@ -344,7 +345,7 @@ while (playing):
         promptReplay() ;
     
     else:
-        print(f"\t\t\t      \"{hiddenQuote}\"") ;
+        print(f"\n\n\t\t\t      \"{hiddenQuote}\"") ;
         
         guess = input(f"\n\n     GUESS A LETTER: " ) ;
         
