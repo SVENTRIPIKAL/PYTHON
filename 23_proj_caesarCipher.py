@@ -29,19 +29,19 @@ def promptShiftNumber():
 def encryptDecrypt():
     global alphabet, message, shift, response ;
     
-    if (response == 'encode'):
-        encryption = "" ;
+    encryption = "" ;
     
-        for letter in message:
-            if (not letter.isalpha()):
-                encryption += letter ;
-            elif (letter.isalpha()):
-                index = 0 ;
-                for alpha in alphabet:
-                    if (alpha == letter):
-                        break ;
-                    else:
-                        index += 1 ;
+    for letter in message:
+        if (not letter.isalpha()):
+            encryption += letter ;
+        elif (letter.isalpha()):
+            index = 0 ;
+            for alpha in alphabet:
+                if (alpha == letter):
+                    break ;
+                else:
+                    index += 1 ;
+            if (response == 'encode'):
                 if ( (index + shift) >= len(alphabet) ):
                     difference = ( (index + shift) - len(alphabet) ) ;
                     while ( difference >= len(alphabet) ):
@@ -49,22 +49,7 @@ def encryptDecrypt():
                     encryption += alphabet[difference] ;
                 else:
                     encryption += alphabet[index + shift] ;
-    
-        message = encryption ;
-    
-    else:
-        encryption = "" ;
-    
-        for letter in message:
-            if (not letter.isalpha()):
-                encryption += letter ;
-            elif (letter.isalpha()):
-                index = 0 ;
-                for alpha in alphabet:
-                    if (alpha == letter):
-                        break ;
-                    else:
-                        index += 1 ;
+            else:
                 if ( (index - shift) < 0 ):
                     difference = ( len(alphabet) + (index - shift) ) ;
                     while ( difference < 0 ):
@@ -73,7 +58,7 @@ def encryptDecrypt():
                 else:
                     encryption += alphabet[index - shift] ;
     
-        message = encryption ;
+    message = encryption ;
 
 
 def rePrompt():
@@ -110,7 +95,7 @@ while (running):
     if ( (response == 'encode') or (response == 'decode') ):
         message = promptCryption() ;    shift = promptShiftNumber() ;
         encryptDecrypt() ;
-        print(f"\n\n MESSAGE:\t\t{message.title()}\n\n") ;
+        print(f"\n\n {response.upper()}D MESSAGE:\t\t{message.title()}\n\n") ;
         rePrompt() ;
     
     else:
