@@ -97,7 +97,7 @@ def rePrompt():
     
     else:
         running = False ;
-        print("\n\n\t\t *** EXITING CAESAR CIPHER ***\n ") ;
+        print("\n\n\t\t\t    *** EXITING CAESAR CIPHER ***\n ") ;
 
 
 
